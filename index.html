@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextDev Academy — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0a0a0a;
+      --paper: #f0ece4;
+      --teal: #1fbf9e;
+      --teal-dark: #0d8a72;
+      --rule: rgba(10,10,10,0.12);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Space Mono', monospace;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .rules {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .rules::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 47px,
+              var(--rule) 47px,
+              var(--rule) 48px
+      );
+    }
+
+    .bg-number {
+      position: absolute;
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: clamp(260px, 38vw, 520px);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(10,10,10,0.07);
+      line-height: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-42%, -54%) rotate(-12deg);
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .v-bar {
+      position: absolute;
+      top: 0;
+      left: 52px;
+      width: 3px;
+      height: 100%;
+      background: var(--teal);
+    }
+
+    .top-strip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--ink);
+    }
+
+    .bottom-strip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--ink);
+    }
+
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 80px 0 92px;
+    }
+
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .tag::before {
+      content: '▶';
+      margin-right: 8px;
+      font-size: 8px;
+    }
+
+    .wordmark {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      line-height: 0.9;
+      margin-bottom: 32px;
+    }
+
+    .wordmark .next {
+      display: block;
+      font-size: clamp(64px, 9vw, 120px);
+      color: var(--ink);
+      letter-spacing: -0.03em;
+    }
+
+    .wordmark .dev {
+      display: block;
+      font-size: clamp(64px, 9vw, 120px);
+      color: var(--teal);
+      letter-spacing: -0.03em;
+    }
+
+    .wordmark .academy-label {
+      display: block;
+      font-size: clamp(13px, 1.6vw, 19px);
+      font-weight: 900;
+      letter-spacing: 0.55em;
+      color: var(--ink);
+      margin-top: 16px;
+      text-indent: 4px;
+    }
+
+    .h-rule {
+      width: 100%;
+      max-width: 480px;
+      height: 1px;
+      background: var(--ink);
+      margin-bottom: 32px;
+    }
+
+    .descriptor {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(11px, 1.3vw, 14px);
+      font-weight: 400;
+      line-height: 2;
+      color: rgba(10,10,10,0.55);
+      max-width: 400px;
+      margin-bottom: 48px;
+    }
+
+    .descriptor strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+
+
+    .corner {
+      position: absolute;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: rgba(10,10,10,0.35);
+    }
+
+    .corner-tr { top: 22px; right: 28px; text-align: right; }
+    .corner-br { bottom: 22px; right: 28px; text-align: right; }
+    .corner-bl { bottom: 22px; left: 92px; }
+
+    .stamp {
+      position: absolute;
+      right: 72px;
+      top: 50%;
+      transform: translateY(-50%) rotate(12deg);
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: transparent;
+      border: 2px solid rgba(10,10,10,0.12);
+      padding: 10px 16px;
+      text-transform: uppercase;
+      -webkit-text-stroke: 1px rgba(10,10,10,0.18);
+      pointer-events: none;
+    }
+
+    .coords {
+      position: absolute;
+      top: 22px;
+      left: 92px;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: rgba(10,10,10,0.3);
+    }
+
+    @media (max-width: 600px) {
+      .v-bar { left: 20px; }
+
+      .content {
+        padding: 0 24px 0 36px;
+        justify-content: center;
+      }
+
+      .tag { margin-bottom: 20px; }
+
+      .wordmark .next,
+      .wordmark .dev { font-size: clamp(56px, 18vw, 80px); }
+
+      .wordmark .academy-label {
+        font-size: clamp(10px, 3.2vw, 14px);
+        letter-spacing: 0.4em;
+        margin-top: 12px;
+      }
+
+      .wordmark { margin-bottom: 24px; }
+
+      .h-rule { margin-bottom: 24px; }
+
+      .descriptor {
+        font-size: 13px;
+        line-height: 1.9;
+        margin-bottom: 0;
+      }
+
+      .stamp { display: none; }
+
+      .coords { left: 36px; font-size: 9px; }
+
+      .corner-tr { display: none; }
+
+      .corner-br {
+        right: 16px;
+        font-size: 9px;
+      }
+
+      .corner-bl {
+        left: 36px;
+        font-size: 9px;
+      }
+
+      .bg-number {
+        font-size: clamp(160px, 55vw, 260px);
+        transform: translate(-40%, -52%) rotate(-12deg);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="scene">
+  <div class="top-strip"></div>
+  <div class="bottom-strip"></div>
+  <div class="rules"></div>
+  <div class="v-bar"></div>
+  <div class="bg-number">2026</div>
+
+  <div class="coords">43.6532° N / 79.3832° W</div>
+
+  <div class="content">
+    <div class="tag">Coming Soon</div>
+
+    <div class="wordmark">
+      <span class="next">NEXT</span>
+      <span class="dev">DEV</span>
+      <span class="academy-label">A C A D E M Y</span>
+    </div>
+
+    <div class="h-rule"></div>
+
+    <p class="descriptor">
+      Learn to code from <strong>literally nothing</strong>.<br>
+      No experience required. Just curiosity.
+    </p>
+  </div>
+
+  <div class="stamp">EST. 2026</div>
+
+  <div class="corner corner-tr">NXTDV — 001</div>
+  <div class="corner corner-br">nextdevacademy.com</div>
+  <div class="corner corner-bl">// v0.1.0 — pre-launch</div>
+</div>
+</body>
+</html>
