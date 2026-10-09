@@ -15,11 +15,13 @@ create table public.lessons (
     constraint lessons_module_id_fkey foreign KEY (module_id) references modules (id)
 ) TABLESPACE pg_default;
 
-alter policy "Anyone can read lessons"
+create policy "Anyone can read lessons"
 on "public"."lessons"
+as PERMISSIVE
+for SELECT
 to public
 using (
-    true
+TRUE
 );
 
 create table public.modules (
@@ -34,11 +36,13 @@ create table public.modules (
     constraint modules_title_key unique (title)
 ) TABLESPACE pg_default;
 
-alter policy "Anyone can read modules"
+create policy "Anyone can read modules"
 on "public"."modules"
+as PERMISSIVE
+for SELECT
 to public
 using (
-    true
+TRUE
 );
 
 
@@ -50,11 +54,13 @@ create table public.profiles (
     constraint profiles_username_key unique (username)
 ) TABLESPACE pg_default;
 
-alter policy "Users can read/write their own profile"
+create policy "Users can read/write their own profile"
 on "public"."profiles"
+as PERMISSIVE
+for ALL
 to authenticated
 using (
-  true
+TRUE
 );
 
 create table public.progresses (
@@ -70,11 +76,13 @@ create table public.progresses (
     constraint progresses_user_id_fkey foreign KEY (user_id) references profiles (id)
 ) TABLESPACE pg_default;
 
-alter policy "Users can read/write their own progress"
+create policy "Users can read/write their own progress"
 on "public"."progresses"
-to public
+as PERMISSIVE
+for ALL
+to authenticated
 using (
-  true
+TRUE
 );
 
 
